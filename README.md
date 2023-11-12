@@ -4,7 +4,7 @@
 [![Build Status](https://github.com/107-systems/t07_teleop/actions/workflows/ros2.yml/badge.svg)](https://github.com/107-systems/t07_teleop/actions/workflows/ros2.yml)
 [![Spell Check status](https://github.com/107-systems/t07_teleop/actions/workflows/spell-check.yml/badge.svg)](https://github.com/107-systems/t07_teleop/actions/workflows/spell-check.yml)
 
-Keyboard based teleoperation for the T07 [T07](https://github.com/107-systems/T07) mobile outdoor robot.
+Keyboard based teleoperation for the [T07](https://github.com/107-systems/T07) mobile outdoor robot.
 
 #### How-to-build
 * Install `gsl-lite`
