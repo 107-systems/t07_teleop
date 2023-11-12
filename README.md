@@ -67,7 +67,5 @@ ros2 launch t07_teleop teleop.py
 ##### Parameters
 |                      Name                      |       Default        | Description                                                             |
 |:----------------------------------------------:|:--------------------:|-------------------------------------------------------------------------|
-|                  `can_iface`                   |        `can0`        | Network name of CAN bus.                                                |
-|                 `can_node_id`                  |         100          | Cyphal/CAN node id.                                                     |
 |               `motor_left_topic`               | `motor/left/target`  |                                                                         |
 |              `motor_right_topic`               | `motor/right/target` |                                                                         |
