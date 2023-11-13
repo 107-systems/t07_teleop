@@ -13,18 +13,14 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(mp-units REQUIRED)
-find_package(OpenCV REQUIRED)
 #######################################################################################
 include_directories(
   include
-  ${OpenCV_INCLUDE_DIRS}
 )
 #######################################################################################
 add_executable(${T07_TELEOP_TARGET}
   src/main.cpp
 )
-#######################################################################################
-target_link_libraries(${T07_TELEOP_TARGET} ${OpenCV_LIBS})
 #######################################################################################
 target_compile_features(${T07_TELEOP_TARGET} PRIVATE cxx_std_20)
 ament_target_dependencies(${T07_TELEOP_TARGET} rclcpp std_msgs mp-units)

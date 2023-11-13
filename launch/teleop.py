@@ -10,6 +10,7 @@ def generate_launch_description():
       namespace='t07',
       output='screen',
       emulate_tty=True,
+      prefix="xterm -e",
       parameters=[
         {'motor_left_topic': '/motor/left/target'},
         {'motor_left_topic_deadline_ms': 100},

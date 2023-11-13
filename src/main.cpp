@@ -8,13 +8,14 @@
  * INCLUDE
  **************************************************************************************/
 
+#include <unistd.h>
+#include <termios.h>
+
 #include <rclcpp/rclcpp.hpp>
 
 #include <std_msgs/msg/float32.hpp>
 
 #include <mp-units/systems/si/si.h>
-
-#include <opencv2/highgui.hpp>
 
 /**************************************************************************************
  * NAMESPACE
@@ -23,6 +24,38 @@
 using namespace mp_units;
 using mp_units::si::unit_symbols::m;
 using mp_units::si::unit_symbols::s;
+
+/**************************************************************************************
+ * FUNCTION DEFINITION
+ **************************************************************************************/
+
+static int getch(void)
+{
+  int ch;
+  struct termios oldt;
+  struct termios newt;
+
+  // Store old settings, and copy to new settings
+  tcgetattr(STDIN_FILENO, &oldt);
+  newt = oldt;
+
+  // Make required changes and apply the settings
+  newt.c_lflag &= ~(ICANON | ECHO);
+  newt.c_iflag |= IGNBRK;
+  newt.c_iflag &= ~(INLCR | ICRNL | IXON | IXOFF);
+  newt.c_lflag &= ~(ICANON | ECHO | ECHOK | ECHOE | ECHONL | ISIG | IEXTEN);
+  newt.c_cc[VMIN] = 1;
+  newt.c_cc[VTIME] = 0;
+  tcsetattr(fileno(stdin), TCSANOW, &newt);
+
+  // Get the current character
+  ch = getchar();
+
+  // Reapply old settings
+  tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+
+  return ch;
+}
 
 /**************************************************************************************
  * MAIN
@@ -74,7 +107,7 @@ int main(int argc, char * argv[])
     while(rclcpp::ok())
     {
       /* Wait for a key to be pressed. */
-      int const ch = cv::waitKey(100);
+      int const ch = getch();
 
       /* Change target velocities depending on keyboard input. */
       if (ch >= 0)
