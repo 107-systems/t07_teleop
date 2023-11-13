@@ -11,7 +11,6 @@ def generate_launch_description():
       output='screen',
       emulate_tty=True,
       parameters=[
-        {'can_iface' : 'can0'},
         {'motor_left_topic': '/motor/left/target'},
         {'motor_left_topic_deadline_ms': 100},
         {'motor_left_topic_liveliness_lease_duration': 1000},
