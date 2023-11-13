@@ -13,7 +13,11 @@ def generate_launch_description():
       parameters=[
         {'can_iface' : 'can0'},
         {'motor_left_topic': '/motor/left/target'},
+        {'motor_left_topic_deadline_ms': 100},
+        {'motor_left_topic_liveliness_lease_duration': 1000},
         {'motor_right_topic': '/motor/right/target'},
+        {'motor_right_topic_deadline_ms': 100},
+        {'motor_right_topic_liveliness_lease_duration': 1000},
       ]
     )
   ])
