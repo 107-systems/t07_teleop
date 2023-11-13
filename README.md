@@ -6,6 +6,8 @@
 
 Keyboard based teleoperation for the [T07](https://github.com/107-systems/T07) mobile outdoor robot.
 
+Use `W`-`A`-`S`-`D` for driving forward, backward and turning. Use `Space` to stop.
+
 #### How-to-build
 * Install `gsl-lite`
 ```bash

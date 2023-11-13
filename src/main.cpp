@@ -29,7 +29,7 @@ using mp_units::si::unit_symbols::s;
  * FUNCTION DEFINITION
  **************************************************************************************/
 
-static int getch(void)
+static int getch_timeout(int const timeout_ms)
 {
   int ch;
   struct termios oldt;
@@ -44,12 +44,28 @@ static int getch(void)
   newt.c_iflag |= IGNBRK;
   newt.c_iflag &= ~(INLCR | ICRNL | IXON | IXOFF);
   newt.c_lflag &= ~(ICANON | ECHO | ECHOK | ECHOE | ECHONL | ISIG | IEXTEN);
-  newt.c_cc[VMIN] = 1;
-  newt.c_cc[VTIME] = 0;
+  newt.c_cc[VMIN] = 0;  // Set to 0 for non-blocking
+  newt.c_cc[VTIME] = 0; // Set to 0 for non-blocking
   tcsetattr(fileno(stdin), TCSANOW, &newt);
 
-  // Get the current character
-  ch = getchar();
+  // Use select for a timeout
+  fd_set readfds;
+  FD_ZERO(&readfds);
+  FD_SET(STDIN_FILENO, &readfds);
+
+  struct timeval timeout;
+  timeout.tv_sec = timeout_ms / 1000;
+  timeout.tv_usec = (timeout_ms % 1000) * 1000;
+
+  int ready = select(STDIN_FILENO + 1, &readfds, NULL, NULL, &timeout);
+
+  if (ready > 0) {
+    // Input is available, read the character
+    ch = getchar();
+  } else {
+    // Timeout occurred
+    ch = EOF;
+  }
 
   // Reapply old settings
   tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
@@ -107,10 +123,10 @@ int main(int argc, char * argv[])
     while(rclcpp::ok())
     {
       /* Wait for a key to be pressed. */
-      int const ch = getch();
+      int const ch = getch_timeout(100);
 
       /* Change target velocities depending on keyboard input. */
-      if (ch >= 0)
+      if (ch != EOF)
       {
         if (tolower(ch) == 'w')
         {
@@ -131,6 +147,11 @@ int main(int argc, char * argv[])
         {
           motor_left_target  += 0.05 * m/s;
           motor_right_target -= 0.05 * m/s;
+        }
+        else if (tolower(ch) == ' ')
+        {
+          motor_left_target  = 0. * m/s;
+          motor_right_target = 0. * m/s;
         }
       }
 
