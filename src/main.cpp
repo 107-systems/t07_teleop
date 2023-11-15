@@ -140,13 +140,13 @@ int main(int argc, char * argv[])
         }
         else if (tolower(ch) == 'a')
         {
-          motor_left_target  -= 0.05 * m/s;
-          motor_right_target += 0.05 * m/s;
+          motor_left_target  += 0.05 * m/s;
+          motor_right_target -= 0.05 * m/s;
         }
         else if (tolower(ch) == 'd')
         {
-          motor_left_target  += 0.05 * m/s;
-          motor_right_target -= 0.05 * m/s;
+          motor_left_target  -= 0.05 * m/s;
+          motor_right_target += 0.05 * m/s;
         }
         else if (tolower(ch) == ' ')
         {
