@@ -9,37 +9,7 @@ Keyboard based teleoperation for the [T07](https://github.com/107-systems/T07) m
 Use `W`-`A`-`S`-`D` for driving forward, backward and turning. Use `Space` to stop.
 
 #### How-to-build
-* Install `gsl-lite`
-```bash
-git clone https://github.com/gsl-lite/gsl-lite && cd gsl-lite
-mkdir build && cd build
-cmake .. && make -j8
-sudo make install
-```
-* Install `Catch2`
-```bash
-git clone https://github.com/catchorg/Catch2 && cd Catch2
-mkdir build && cd build
-cmake .. && make -j8
-sudo make install
-```
-* Install `fmt`
-```bash
-git clone https://github.com/fmtlib/fmt && cd fmt
-mkdir build && cd build
-cmake -DFMT_TEST=OFF ..
-make -j8
-sudo make install
-```
-* Install `mp-units`
-```bash
-git clone https://github.com/mpusz/mp-units && cd mp-units
-mkdir build && cd build
-cmake -DMP_UNITS_AS_SYSTEM_HEADERS=ON -DMP_UNITS_BUILD_LA=OFF ..
-make -j8
-sudo make install
-```
-* Build with `colcon`
+Note: Don't forget to install the [dependencies](https://github.com/107-systems/t07_teleop#install-dependencies).
 ```bash
 cd $COLCON_WS/src
 git clone https://github.com/107-systems/t07_teleop
@@ -75,3 +45,35 @@ ros2 launch t07_teleop teleop.py
 |              `motor_right_topic`               | `motor/right/target` |                                                                         |
 |        `motor_right_topic_deadline_ms`         |         100          |                                                                         |
 | `motor_right_topic_liveliness_lease_duration`  |         1000         |                                                                         | 
+
+#### Install dependencies
+* Install `gsl-lite`
+```bash
+git clone https://github.com/gsl-lite/gsl-lite && cd gsl-lite
+mkdir build && cd build
+cmake .. && make -j8
+sudo make install
+```
+* Install `Catch2`
+```bash
+git clone https://github.com/catchorg/Catch2 && cd Catch2
+mkdir build && cd build
+cmake .. && make -j8
+sudo make install
+```
+* Install `fmt`
+```bash
+git clone https://github.com/fmtlib/fmt && cd fmt
+mkdir build && cd build
+cmake -DFMT_TEST=OFF ..
+make -j8
+sudo make install
+```
+* Install `mp-units`
+```bash
+git clone https://github.com/mpusz/mp-units && cd mp-units
+mkdir build && cd build
+cmake -DMP_UNITS_AS_SYSTEM_HEADERS=ON -DMP_UNITS_BUILD_LA=OFF ..
+make -j8
+sudo make install
+```
