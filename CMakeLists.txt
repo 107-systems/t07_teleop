@@ -12,27 +12,20 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
-find_package(mp-units REQUIRED)
 #######################################################################################
-include_directories(
-  include
-)
+add_subdirectory(external/mp-units/src)
 #######################################################################################
-add_executable(${T07_TELEOP_TARGET}
-  src/main.cpp
-)
+include_directories(include)
+#######################################################################################
+add_executable(${T07_TELEOP_TARGET} src/main.cpp)
+#######################################################################################
+target_link_libraries(${T07_TELEOP_TARGET} mp-units)
 #######################################################################################
 target_compile_features(${T07_TELEOP_TARGET} PRIVATE cxx_std_20)
-ament_target_dependencies(${T07_TELEOP_TARGET} rclcpp std_msgs mp-units)
+ament_target_dependencies(${T07_TELEOP_TARGET} rclcpp std_msgs)
 #######################################################################################
-install(TARGETS
-  ${T07_TELEOP_TARGET}
-  DESTINATION lib/${PROJECT_NAME})
-
-install(DIRECTORY
-  launch
-  DESTINATION share/${PROJECT_NAME}
-)
+install(TARGETS ${T07_TELEOP_TARGET} DESTINATION lib/${PROJECT_NAME})
+install(DIRECTORY launch DESTINATION share/${PROJECT_NAME})
 #######################################################################################
 ament_package()
 #######################################################################################

@@ -12,7 +12,7 @@ Use `W`-`A`-`S`-`D` for driving forward, backward and turning. Use `Space` to st
 Note: Don't forget to install the [dependencies](https://github.com/107-systems/t07_teleop#install-dependencies).
 ```bash
 cd $COLCON_WS/src
-git clone https://github.com/107-systems/t07_teleop
+git clone --recursive https://github.com/107-systems/t07_teleop
 cd $COLCON_WS
 source /opt/ros/humble/setup.bash
 colcon build --packages-select t07_teleop
@@ -66,14 +66,6 @@ sudo make install
 git clone https://github.com/fmtlib/fmt && cd fmt
 mkdir build && cd build
 cmake -DFMT_TEST=OFF ..
-make -j8
-sudo make install
-```
-* Install `mp-units`
-```bash
-git clone https://github.com/mpusz/mp-units && cd mp-units
-mkdir build && cd build
-cmake -DMP_UNITS_AS_SYSTEM_HEADERS=ON -DMP_UNITS_BUILD_LA=OFF ..
 make -j8
 sudo make install
 ```
