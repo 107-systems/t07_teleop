@@ -155,6 +155,14 @@ int main(int argc, char * argv[])
         }
       }
 
+      /* Limit the maximum target value. */
+      motor_left_target = std::min(motor_left_target,  2. * m/s);
+      motor_left_target = std::max(motor_left_target, -2. * m/s);
+
+      motor_right_target = std::min(motor_right_target,  2. * m/s);
+      motor_right_target = std::max(motor_right_target, -2. * m/s);
+
+
       /* Publish the target velocities. */
       {
         std_msgs::msg::Float32 motor_left_target_msg;
